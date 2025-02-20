@@ -25,27 +25,28 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 5,
     elevation: 3,
-    width: 250, // Voeg een vaste breedte toe voor consistentie
+    width: 150, // Kleinere breedte zodat de kaarten goed naast elkaar passen
+    margin: 5,
   },
   image: {
-    width: 150,
-    height: 150,
+    width: 120,
+    height: 120,
     marginBottom: 10,
     borderRadius: 10,
   },
   name: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: "bold",
     textAlign: "center",
   },
   description: {
-    fontSize: 14,
+    fontSize: 12,
     color: "#777",
     textAlign: "center",
     marginBottom: 5,
   },
   price: {
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: "bold",
     color: "#e63946",
     marginBottom: 10,
