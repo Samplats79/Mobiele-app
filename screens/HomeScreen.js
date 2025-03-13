@@ -1,5 +1,5 @@
 import React from "react";
-import { View, ScrollView, StyleSheet, Text, TouchableOpacity } from "react-native";
+import { View, ScrollView, StyleSheet, Text } from "react-native";
 import ProductCard from "../components/ProductCard";
 
 const products = [
@@ -7,15 +7,29 @@ const products = [
     id: 1,
     name: "LeBron James Tenue",
     description: "Officiële Lakers jersey #23",
-    price: "€79,99",
+    price: 79.99,  // Dit is nu een nummer in plaats van een string
     image: require("../assets/images.jpg"),
   },
   {
     id: 2,
-    name: "LeBron James Tenue",
-    description: "Officiële Lakers jersey #23",
-    price: "€79,99",
-    image: require("../assets/images.jpg"),
+    name: "Kyrie Irving Tenue",
+    description: "Officiële Dallas jersey #2",
+    price: 79.99,  // Dit is nu een nummer in plaats van een string
+    image: require("../assets/kyrie.jpg"),
+  },
+  {
+    id: 3,
+    name: "Stephen Curry Tenue",
+    description: "Officiële Warriors jersey #30",
+    price: 79.99,  // Dit is nu een nummer in plaats van een string
+    image: require("../assets/steph.jpg"),
+  },
+  {
+    id: 4,
+    name: "Russel Westbrook Tenue",
+    description: "Officiële Clippers jersey #0",
+    price: 79.99,  // Dit is nu een nummer in plaats van een string
+    image: require("../assets/russel.jpg"),
   },
 ];
 
@@ -25,13 +39,9 @@ const HomeScreen = ({ navigation }) => {
       <Text style={styles.title}>Onze Modellen</Text>
       <View style={styles.productContainer}>
         {products.map((product) => (
-          <ProductCard key={product.id} product={product} />
+          <ProductCard key={product.id} product={product} navigation={navigation} />
         ))}
       </View>
-
-      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("ProductDetail")}>
-        <Text style={styles.buttonText}>Ga naar Details</Text>
-      </TouchableOpacity>
     </ScrollView>
   );
 };
@@ -56,18 +66,6 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     width: "100%",
-  },
-  button: {
-    marginTop: 20,
-    backgroundColor: "#007bff",
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 8,
-    alignItems: "center",
-  },
-  buttonText: {
-    color: "#fff",
-    fontWeight: "bold",
   },
 });
 

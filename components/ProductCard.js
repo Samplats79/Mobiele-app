@@ -1,13 +1,19 @@
+import React from "react";
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 
-export default function ProductCard({ product }) {
+export default function ProductCard({ product, navigation }) {
   return (
     <View style={styles.card}>
       <Image source={product.image} style={styles.image} />
       <Text style={styles.name}>{product.name}</Text>
       <Text style={styles.description}>{product.description}</Text>
       <Text style={styles.price}>{product.price}</Text>
-      <TouchableOpacity style={styles.button}>
+
+      {/* Wanneer je op de kaart klikt, ga naar de ProductDetail-pagina */}
+      <TouchableOpacity 
+        style={styles.button} 
+        onPress={() => navigation.navigate("ProductDetail", { product })} // Dit stuurt het product mee naar de detailpagina
+      >
         <Text style={styles.buttonText}>Bekijk product</Text>
       </TouchableOpacity>
     </View>
