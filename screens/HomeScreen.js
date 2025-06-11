@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { View, ScrollView, StyleSheet, Text, TextInput } from "react-native";
+import {
+  View,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+} from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import ProductCard from "../components/ProductCard";
 
@@ -31,7 +38,7 @@ const HomeScreen = ({ navigation }) => {
             name: item.product.fieldData.name,
             description: item.product.fieldData.description,
             price: (item.skus?.[0]?.fieldData?.price?.value || 0) / 100,
-            image: { uri: item.skus?.[0]?.fieldData?.["main-image"]?.url },
+            image: item.skus?.[0]?.fieldData?.["main-image"]?.url || "",
             category:
               categoryNames[item.product.fieldData.category?.[0]] || "Onbekend",
           }))
@@ -98,7 +105,7 @@ const HomeScreen = ({ navigation }) => {
         </Picker>
       </View>
 
-      {/* Producten weergeven */}
+      {/* Producten in één kolom */}
       <View style={styles.productContainer}>
         {sortedProducts.map((product) => (
           <ProductCard
@@ -108,6 +115,14 @@ const HomeScreen = ({ navigation }) => {
           />
         ))}
       </View>
+
+      {/* Blog knop */}
+      <TouchableOpacity
+        style={styles.blogButton}
+        onPress={() => navigation.navigate("Blog")}
+      >
+        <Text style={styles.blogButtonText}>📚 Bekijk onze blogs</Text>
+      </TouchableOpacity>
     </ScrollView>
   );
 };
@@ -116,6 +131,7 @@ const styles = StyleSheet.create({
   scrollContainer: {
     padding: 20,
     backgroundColor: "#f5f5f5",
+    alignItems: "center", // centreren van kaarten in 1 kolom
   },
   title: {
     fontSize: 24,
@@ -125,6 +141,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   controls: {
+    width: "100%",
     marginBottom: 20,
   },
   searchInput: {
@@ -143,9 +160,20 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   productContainer: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "space-between",
+    width: "100%", // belangrijk voor 1 kolom layout
+    alignItems: "center",
+  },
+  blogButton: {
+    backgroundColor: "#007bff",
+    padding: 15,
+    borderRadius: 10,
+    marginTop: 30,
+    alignItems: "center",
+  },
+  blogButtonText: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "bold",
   },
 });
 

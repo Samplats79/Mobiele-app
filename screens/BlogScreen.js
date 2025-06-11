@@ -1,42 +1,47 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, ScrollView, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Text, ScrollView, StyleSheet } from "react-native";
+import BlogCard from "../components/BlogCard";
 
 const BlogScreen = ({ navigation }) => {
   const [blogs, setBlogs] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("https://api.webflow.com/collections/67d30c9112b657255dd2315/items?live=true", {
+    fetch("https://api.webflow.com/v2/collections/67d30c9112ab657255dd2315/items", {
       headers: {
         Authorization: "Bearer 3dbe01b3f32172c80e2d238a779248b5d28da76fde6272e7e1bbb76d9ebff485",
       },
     })
       .then((res) => res.json())
       .then((data) => {
-        const items = data.items.map((item) => ({
-          id: item._id,
-          title: item.name,
-          summary: item["post-summary"],
-          content: item["post-body"],
-          image: item["main-image"]?.url,
-        }));
-        setBlogs(items);
+        console.log("GEKREGEN DATA:", data); // << voeg dit toe om te debuggen
+        if (data && data.items) {
+          const items = data.items.map((item) => ({
+            id: item._id || item.id,
+            title: item.name,
+            summary: item["post-summary"],
+            content: item["post-body"],
+            image: item["main-image"]?.url,
+          }));
+          setBlogs(items);
+        } else {
+          console.warn("Ongeldige response:", data);
+        }
       })
-      .catch((err) => console.error("Fout bij het ophalen van blogs:", err));
+      .catch((err) => console.error("Fout bij het ophalen van blogs:", err))
+      .finally(() => setLoading(false));
   }, []);
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.title}>Onze Blogposts</Text>
-      {blogs.map((blog) => (
-        <TouchableOpacity
-          key={blog.id}
-          style={styles.card}
-          onPress={() => navigation.navigate("BlogDetail", { blog })}
-        >
-          <Text style={styles.blogTitle}>{blog.title}</Text>
-          <Text numberOfLines={2} style={styles.summary}>{blog.summary}</Text>
-        </TouchableOpacity>
-      ))}
+      {loading ? (
+        <Text>Bezig met laden...</Text>
+      ) : (
+        blogs.map((blog) => (
+          <BlogCard key={blog.id} blog={blog} navigation={navigation} />
+        ))
+      )}
     </ScrollView>
   );
 };
@@ -51,25 +56,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginBottom: 20,
     textAlign: "center",
-  },
-  card: {
-    backgroundColor: "#fff",
-    padding: 15,
-    marginBottom: 15,
-    borderRadius: 10,
-    shadowColor: "#000",
-    shadowOpacity: 0.1,
-    shadowRadius: 5,
-    elevation: 2,
-  },
-  blogTitle: {
-    fontSize: 18,
-    fontWeight: "bold",
-    marginBottom: 5,
-  },
-  summary: {
-    fontSize: 14,
-    color: "#555",
   },
 });
 

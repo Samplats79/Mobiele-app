@@ -4,15 +4,20 @@ import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 export default function ProductCard({ product, navigation }) {
   return (
     <View style={styles.card}>
-      <Image source={product.image} style={styles.image} />
+      {product.image ? (
+        <Image source={{ uri: product.image }} style={styles.image} />
+      ) : (
+        <View style={[styles.image, styles.imagePlaceholder]}>
+          <Text style={{ color: "#aaa" }}>Geen afbeelding</Text>
+        </View>
+      )}
       <Text style={styles.name}>{product.name}</Text>
       <Text style={styles.description}>{product.description}</Text>
-      <Text style={styles.price}>{product.price}</Text>
+      <Text style={styles.price}>€ {product.price.toFixed(2)}</Text>
 
-      {/* Wanneer je op de kaart klikt, ga naar de ProductDetail-pagina */}
-      <TouchableOpacity 
-        style={styles.button} 
-        onPress={() => navigation.navigate("ProductDetail", { product })} // Dit stuurt het product mee naar de detailpagina
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => navigation.navigate("ProductDetail", { product })}
       >
         <Text style={styles.buttonText}>Bekijk product</Text>
       </TouchableOpacity>
@@ -31,28 +36,34 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 5,
     elevation: 3,
-    width: 150, // Kleinere breedte zodat de kaarten goed naast elkaar passen
-    margin: 5,
+    width: "90%",
   },
   image: {
-    width: 120,
-    height: 120,
-    marginBottom: 10,
+    width: "100%",
+    height: 180,
     borderRadius: 10,
+    marginBottom: 10,
+    resizeMode: "cover",
+  },
+  imagePlaceholder: {
+    backgroundColor: "#eee",
+    justifyContent: "center",
+    alignItems: "center",
   },
   name: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: "bold",
     textAlign: "center",
+    marginBottom: 5,
   },
   description: {
-    fontSize: 12,
+    fontSize: 14,
     color: "#777",
     textAlign: "center",
     marginBottom: 5,
   },
   price: {
-    fontSize: 14,
+    fontSize: 16,
     fontWeight: "bold",
     color: "#e63946",
     marginBottom: 10,
@@ -67,4 +78,11 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontWeight: "bold",
   },
+  image: {
+    width: 100,
+    height: 100,
+    marginBottom: 10,
+    borderRadius: 10,
+  },
+  
 });
