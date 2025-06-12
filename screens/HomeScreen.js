@@ -1,12 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  View,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-} from "react-native";
+import { View, ScrollView, StyleSheet, TextInput, TouchableOpacity, Image, Text } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import ProductCard from "../components/ProductCard";
 
@@ -71,7 +64,10 @@ const HomeScreen = ({ navigation }) => {
 
   return (
     <ScrollView contentContainerStyle={styles.scrollContainer}>
-      <Text style={styles.title}>Onze Modellen</Text>
+      {/* Klikbaar logo */}
+      <TouchableOpacity onPress={() => navigation.navigate("OverOns")}>
+        <Image source={require("../assets/logo zonder.png")} style={styles.logo} />
+      </TouchableOpacity>
 
       {/* Zoek en filter */}
       <View style={styles.controls}>
@@ -131,14 +127,13 @@ const styles = StyleSheet.create({
   scrollContainer: {
     padding: 20,
     backgroundColor: "#f5f5f5",
-    alignItems: "center", // centreren van kaarten in 1 kolom
+    alignItems: "center",
   },
-  title: {
-    fontSize: 24,
-    fontWeight: "bold",
+  logo: {
+    width: 300,
+    height: 100,
+    resizeMode: "contain",
     marginBottom: 20,
-    color: "#333",
-    textAlign: "center",
   },
   controls: {
     width: "100%",
@@ -160,7 +155,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   productContainer: {
-    width: "100%", // belangrijk voor 1 kolom layout
+    width: "100%",
     alignItems: "center",
   },
   blogButton: {

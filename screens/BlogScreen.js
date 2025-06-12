@@ -7,21 +7,19 @@ const BlogScreen = ({ navigation }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("https://api.webflow.com/v2/collections/67d30c9112ab657255dd2315/items", {
+    fetch("https://api.webflow.com/v2/sites/67b5ee01d2d266ffba9ef91e/collections/67d310f9da0d6ec29ab01619/items", {
       headers: {
-        Authorization: "Bearer 3dbe01b3f32172c80e2d238a779248b5d28da76fde6272e7e1bbb76d9ebff485",
+        Authorization: "Bearer eab13d64fcde1559fb725a37c3572a8d226dd37211e091a7f398cbbc0381e595",
       },
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log("GEKREGEN DATA:", data); // << voeg dit toe om te debuggen
         if (data && data.items) {
           const items = data.items.map((item) => ({
             id: item._id || item.id,
-            title: item.name,
-            summary: item["post-summary"],
-            content: item["post-body"],
-            image: item["main-image"]?.url,
+            title: item.name || "Geen titel",
+            content: item["post-body"] || "Geen inhoud beschikbaar.",
+            image: item["main-image"]?.url || "",
           }));
           setBlogs(items);
         } else {
@@ -34,7 +32,7 @@ const BlogScreen = ({ navigation }) => {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.title}>Onze Blogposts</Text>
+      <Text style={styles.title}>Blogposts</Text>
       {loading ? (
         <Text>Bezig met laden...</Text>
       ) : (

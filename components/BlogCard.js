@@ -4,8 +4,12 @@ import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 export default function BlogCard({ blog, navigation }) {
   return (
     <View style={styles.card}>
-      {blog.image && (
+      {blog.image ? (
         <Image source={{ uri: blog.image }} style={styles.image} />
+      ) : (
+        <View style={[styles.image, styles.imagePlaceholder]}>
+          <Text style={{ color: "#aaa" }}>Geen afbeelding</Text>
+        </View>
       )}
       <Text style={styles.title}>{blog.title}</Text>
       <Text numberOfLines={2} style={styles.summary}>{blog.summary}</Text>
@@ -25,21 +29,29 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     padding: 15,
     borderRadius: 10,
-    marginBottom: 15,
+    marginBottom: 20,
     alignItems: "center",
     shadowColor: "#000",
     shadowOpacity: 0.1,
     shadowRadius: 5,
     elevation: 3,
+    width: "90%", // ❗zelfde breedte als ProductCard
+    alignSelf: "center", // centreren in ScrollView
   },
   image: {
     width: "100%",
-    height: 150,
+    height: 180,
     borderRadius: 10,
     marginBottom: 10,
+    resizeMode: "cover",
+  },
+  imagePlaceholder: {
+    backgroundColor: "#eee",
+    justifyContent: "center",
+    alignItems: "center",
   },
   title: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: "bold",
     textAlign: "center",
     marginBottom: 5,
@@ -51,13 +63,14 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   button: {
-    backgroundColor: "#007bff",
-    paddingVertical: 8,
-    paddingHorizontal: 15,
-    borderRadius: 5,
+    backgroundColor: "#e63946", // ❗zelfde kleur als HomeScreen-knoppen
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 8,
   },
   buttonText: {
     color: "#fff",
     fontWeight: "bold",
+    fontSize: 16,
   },
 });

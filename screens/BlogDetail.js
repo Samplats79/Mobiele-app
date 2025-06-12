@@ -6,14 +6,23 @@ const BlogDetail = ({ route }) => {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.title}>{blog.title}</Text>
+      <Text style={styles.title}>{blog.title || "Geen titel"}</Text>
 
-      {blog.image && (
+      {blog.image ? (
         <Image source={{ uri: blog.image }} style={styles.image} />
+      ) : (
+        <View style={[styles.image, styles.placeholder]}>
+          <Text style={{ color: "#aaa" }}>Geen afbeelding</Text>
+        </View>
       )}
 
-      <Text style={styles.summary}>{blog.summary}</Text>
-      <Text style={styles.content}>{blog.content}</Text>
+      <Text style={styles.summary}>
+        {blog.summary || "Geen samenvatting beschikbaar."}
+      </Text>
+
+      <Text style={styles.content}>
+        {blog.content || "Geen inhoud beschikbaar."}
+      </Text>
     </ScrollView>
   );
 };
@@ -28,6 +37,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginBottom: 15,
     color: "#222",
+    textAlign: "center",
   },
   image: {
     width: "100%",
@@ -36,11 +46,17 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginBottom: 15,
   },
+  placeholder: {
+    backgroundColor: "#eee",
+    justifyContent: "center",
+    alignItems: "center",
+  },
   summary: {
     fontSize: 16,
     color: "#555",
     fontStyle: "italic",
     marginBottom: 15,
+    textAlign: "center",
   },
   content: {
     fontSize: 16,

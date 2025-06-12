@@ -26,7 +26,7 @@ const ProductDetail = ({ route }) => {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.card}>
-        <Image source={product.image} style={styles.image} />
+        <Image source={{ uri: product.image }} style={styles.image} /> 
         <Text style={styles.title}>{product.name}</Text>
         <Text style={styles.description}>{product.description}</Text>
         <Text style={styles.price}>Prijs per stuk: €{product.price}</Text>
@@ -67,12 +67,13 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     alignItems: "center",
     width: "100%",
-    maxWidth: 500,  // Optioneel: Beperk de maximale breedte voor betere weergave
+    maxWidth: 500, // Optioneel: Beperk de maximale breedte
   },
   image: {
     width: 200,
     height: 200,
     marginBottom: 10,
+    borderRadius: 10,
   },
   title: {
     fontSize: 22,
@@ -117,4 +118,5 @@ const styles = StyleSheet.create({
     color: "#e63946",
   },
 });
+
 export default ProductDetail;
