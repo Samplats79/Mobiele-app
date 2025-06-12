@@ -1,5 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { View, ScrollView, StyleSheet, TextInput, TouchableOpacity, Image, Text } from "react-native";
+import {
+  View,
+  ScrollView,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
+  Image,
+  Text,
+} from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import ProductCard from "../components/ProductCard";
 
@@ -66,7 +74,10 @@ const HomeScreen = ({ navigation }) => {
     <ScrollView contentContainerStyle={styles.scrollContainer}>
       {/* Klikbaar logo */}
       <TouchableOpacity onPress={() => navigation.navigate("OverOns")}>
-        <Image source={require("../assets/logo zonder.png")} style={styles.logo} />
+        <Image
+          source={require("../assets/logo zonder.png")}
+          style={styles.logo}
+        />
       </TouchableOpacity>
 
       {/* Zoek en filter */}
@@ -119,6 +130,14 @@ const HomeScreen = ({ navigation }) => {
       >
         <Text style={styles.blogButtonText}>📚 Bekijk onze blogs</Text>
       </TouchableOpacity>
+
+      {/* Contact knop */}
+      <TouchableOpacity
+        style={styles.contactButton}
+        onPress={() => navigation.navigate("Contact")}
+      >
+        <Text style={styles.contactButtonText}>📞 Contacteer ons</Text>
+      </TouchableOpacity>
     </ScrollView>
   );
 };
@@ -166,6 +185,18 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   blogButtonText: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "bold",
+  },
+  contactButton: {
+    backgroundColor: "#28a745",
+    padding: 15,
+    borderRadius: 10,
+    marginTop: 15,
+    alignItems: "center",
+  },
+  contactButtonText: {
     color: "#fff",
     fontSize: 16,
     fontWeight: "bold",

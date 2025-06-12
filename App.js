@@ -6,6 +6,8 @@ import ProductDetail from "./screens/ProductDetail.js";
 import BlogScreen from "./screens/BlogScreen";
 import BlogDetail from "./screens/BlogDetail";
 import OverOnsScreen from "./screens/OverOnsScreen";
+import ContactScreen from "./screens/ContactScreen";
+
 
 
 const Stack = createStackNavigator();
@@ -19,6 +21,8 @@ export default function App() {
         <Stack.Screen name="Blog" component={BlogScreen} />
         <Stack.Screen name="BlogDetail" component={BlogDetail} />
         <Stack.Screen name="OverOns" component={OverOnsScreen} />
+        <Stack.Screen name="Contact" component={ContactScreen} />
+
       </Stack.Navigator>   
     </NavigationContainer>
   );
