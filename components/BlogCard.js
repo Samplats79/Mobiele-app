@@ -35,8 +35,8 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 5,
     elevation: 3,
-    width: "90%", // ❗zelfde breedte als ProductCard
-    alignSelf: "center", // centreren in ScrollView
+    width: "90%",
+    alignSelf: "center",
   },
   image: {
     width: "100%",
@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   button: {
-    backgroundColor: "#e63946", // ❗zelfde kleur als HomeScreen-knoppen
+    backgroundColor: "#e63946",
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 8,

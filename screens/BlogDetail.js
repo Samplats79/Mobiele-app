@@ -1,12 +1,20 @@
 import React from "react";
-import { View, Text, Image, ScrollView, StyleSheet } from "react-native";
+import { View, Text, Image, ScrollView, StyleSheet, useWindowDimensions } from "react-native";
+import RenderHTML from "react-native-render-html";
 
 const BlogDetail = ({ route }) => {
   const { blog } = route.params;
+  const { width } = useWindowDimensions();
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.title}>{blog.title || "Geen titel"}</Text>
+      <Text style={styles.title}>{blog.title}</Text>
+
+      {blog.date && (
+        <Text style={styles.date}>
+          {new Date(blog.date).toLocaleDateString("nl-BE")}
+        </Text>
+      )}
 
       {blog.image ? (
         <Image source={{ uri: blog.image }} style={styles.image} />
@@ -17,12 +25,11 @@ const BlogDetail = ({ route }) => {
       )}
 
       <Text style={styles.summary}>
-        {blog.summary || "Geen samenvatting beschikbaar."}
+        {blog.summary}
       </Text>
 
-      <Text style={styles.content}>
-        {blog.content || "Geen inhoud beschikbaar."}
-      </Text>
+      {/* ✨ Render HTML van de blog body */}
+      <RenderHTML contentWidth={width} source={{ html: blog.content }} />
     </ScrollView>
   );
 };
@@ -35,9 +42,15 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 26,
     fontWeight: "bold",
-    marginBottom: 15,
+    marginBottom: 10,
     color: "#222",
     textAlign: "center",
+  },
+  date: {
+    fontSize: 14,
+    color: "#666",
+    textAlign: "center",
+    marginBottom: 10,
   },
   image: {
     width: "100%",
@@ -53,15 +66,10 @@ const styles = StyleSheet.create({
   },
   summary: {
     fontSize: 16,
-    color: "#555",
     fontStyle: "italic",
-    marginBottom: 15,
     textAlign: "center",
-  },
-  content: {
-    fontSize: 16,
-    color: "#333",
-    lineHeight: 22,
+    color: "#555",
+    marginBottom: 15,
   },
 });
 

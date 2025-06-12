@@ -7,7 +7,7 @@ const BlogScreen = ({ navigation }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("https://api.webflow.com/v2/sites/67b5ee01d2d266ffba9ef91e/collections/67d310f9da0d6ec29ab01619/items", {
+    fetch("https://api.webflow.com/v2/sites/67b5ee01d2d266ffba9ef91e/collections/67d30c911a2b657255dd2315/items", {
       headers: {
         Authorization: "Bearer eab13d64fcde1559fb725a37c3572a8d226dd37211e091a7f398cbbc0381e595",
       },
@@ -16,10 +16,12 @@ const BlogScreen = ({ navigation }) => {
       .then((data) => {
         if (data && data.items) {
           const items = data.items.map((item) => ({
-            id: item._id || item.id,
-            title: item.name || "Geen titel",
-            content: item["post-body"] || "Geen inhoud beschikbaar.",
-            image: item["main-image"]?.url || "",
+            id: item.id,
+            title: item.fieldData.name || "Geen titel",
+            date: item.lastPublished || item.createdOn || "", // Gebruik publicatiedatum
+            summary: item.fieldData["post-summary"] || "Geen samenvatting beschikbaar.",
+            content: item.fieldData["post-body"] || "Geen inhoud beschikbaar.",
+            image: item.fieldData["main-image"]?.url || "https://via.placeholder.com/300x200.png?text=Geen+Afbeelding",
           }));
           setBlogs(items);
         } else {
