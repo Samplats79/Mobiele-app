@@ -1,10 +1,8 @@
 import React from "react";
-import { View, Text, Image, ScrollView, StyleSheet, useWindowDimensions } from "react-native";
-import RenderHTML from "react-native-render-html";
+import { View, Text, Image, ScrollView, StyleSheet } from "react-native";
 
 const BlogDetail = ({ route }) => {
   const { blog } = route.params;
-  const { width } = useWindowDimensions();
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
@@ -27,9 +25,6 @@ const BlogDetail = ({ route }) => {
       <Text style={styles.summary}>
         {blog.summary}
       </Text>
-
-      {/* ✨ Render HTML van de blog body */}
-      <RenderHTML contentWidth={width} source={{ html: blog.content }} />
     </ScrollView>
   );
 };
